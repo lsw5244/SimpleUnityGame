@@ -15,7 +15,7 @@ public class DiePlayer : MonoBehaviour {
     [HideInInspector]
     public bool playerDie = false;
 
-	void Start () {
+    void Start () {
         StartCoroutine(Die());	
 	}
 
