@@ -19,6 +19,7 @@ public class PlayerControll : MonoBehaviour {
 
     public GameObject explosionParticle;
 
+    float isOneSec = 0;
 
     void FixedUpdate ()
     {
@@ -35,91 +36,16 @@ public class PlayerControll : MonoBehaviour {
         }
         transform.position += new Vector3(x, y, 0f);
 
-
-
-	}
-
-    public void MoveUpBtn()
-    {
-        if(!iceHit)
+        isOneSec += Time.deltaTime;
+        if(isOneSec > 0.1) //0.1초마다 3점 추가
         {
-            x = 0;
-            y = 1f * Time.deltaTime * speed * direction;
+            point += 3;
+            PointUp();
+            isOneSec = 0;
         }
+
     }
 
-    public void MoveDownBtn()
-    {
-        if(!iceHit)
-        {
-            x = 0;
-            y = -1f * Time.deltaTime * speed * direction;
-
-        }
-    }
-
-    public void MoveLeftBtn()
-    {
-        if(!iceHit)
-        {
-            y = 0;
-            x = -1f * Time.deltaTime * speed * direction;
-        }
-    }
-
-    public void MoveRightBtn()
-    {
-        if(!iceHit)
-        {
-            y = 0;
-            x = 1f * Time.deltaTime * speed * direction;
-        }
-    }
-
-    public void MoveStopBtn()
-    {
-        if(!iceHit)
-        {
-            x = 0;
-            y = 0;
-        }
-    }
-
-    public void MoveUpLeftBtn()
-    {
-        if (!iceHit)
-        {
-            x = -1 * Time.deltaTime * speed * direction;
-            y = 1 * Time.deltaTime * speed * direction;
-        }
-    }
-
-    public void MoveUpRightBtn()
-    {
-        if (!iceHit)
-        {
-            x = 1 * Time.deltaTime * speed * direction;
-            y = 1 * Time.deltaTime * speed * direction;
-        }
-    }
-
-    public void MoveDownLeftBtn()
-    {
-        if (!iceHit)
-        {
-            x = -1 * Time.deltaTime * speed * direction;
-            y = -1 * Time.deltaTime * speed * direction;
-        }
-    }
-
-    public void MoveDownRightBtn()
-    {
-        if (!iceHit)
-        {
-            x = 1 * Time.deltaTime * speed * direction;
-            y = -1 * Time.deltaTime * speed * direction;
-        }
-    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -139,13 +65,13 @@ public class PlayerControll : MonoBehaviour {
             //SceneManager.LoadScene("MYC", LoadSceneMode.Single);
         }
 
-        if(other.gameObject.tag == "Changer")
+        if(other.gameObject.tag == "Changer")  //Fix Me : 점수 줄이는 코드 > 컨트롤 방향 바꾸는 코드로
         {
-            direction *= -1;
-           // Invoke("ResetDirection", 3f);
+            //direction *= -1;
+            //Destroy(other.gameObject);
+            point -= 150;
+            PointUp();
             Destroy(other.gameObject);
-            //GameObject.Find("Gamemanager").GetComponent<TextControl>()
-
         }
 
         if(other.gameObject.tag == "Freeze")
