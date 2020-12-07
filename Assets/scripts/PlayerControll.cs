@@ -61,11 +61,9 @@ public class PlayerControll : MonoBehaviour {
             GameObject.Find("Gamemanager").GetComponent<DiePlayer>().score = point;
             GameObject.Find("Gamemanager").GetComponent<DiePlayer>().playerDie = true;
             scoreText.text = "";
-            
-            //SceneManager.LoadScene("MYC", LoadSceneMode.Single);
         }
 
-        if(other.gameObject.tag == "Changer")  //Fix Me : 점수 줄이는 코드 > 컨트롤 방향 바꾸는 코드로
+        if(other.gameObject.tag == "PointDown")
         {
             //direction *= -1;
             //Destroy(other.gameObject);
